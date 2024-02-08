@@ -9,16 +9,10 @@ mixin tableRow(item, index)
       td= index + 1
       td= item.sku
       td= item.title
-      td= item.quantity
-      td= item.priceString
+      td.value= item.quantity
+      td.value= item.priceString
       td.value= item.totalString
-mixin promotionRow(promotion)
-    tr
-      td
-        h4
-          | &nbsp;- #{promotion.name}
-      td.value
-        h4= promotion.amountString
+
 doctype html
 html(lang='en')
   head
@@ -41,7 +35,7 @@ html(lang='en')
         align-items: center;
         gap: 4px;
         padding: 0;
-        margin: 0;
+        marhgin: 0;
         margin-bottom: 8px;
       }
       .section-title {
@@ -52,25 +46,26 @@ html(lang='en')
       border-collapse: collapse;
       margin-top: 16px;
       }
-      .main-table td,
-      .main-table th {
+      td,
+      th {
       text-align: left;
       padding: 8px;
       }
-      .main-table th {
+      th {
       border-top: 2px solid #000;
       border-bottom: 2px solid #000;
       }
-      .main-table th:first-child {
+      th:first-child {
       border-left: 2px solid #000;
       }
-      .main-table th:last-child {
+      th:last-child {
       border-right: 2px solid #000;
       }
-      .main-table tbody tr:last-child td {
+      tbody tr:last-child td {
       border-bottom: 2px solid #000;
       }
       .prices-section {
+      font-size: 14x;
       margin-top: 16px;
       display: flex;
       justify-content: flex-end;
@@ -80,11 +75,13 @@ html(lang='en')
       margin: 0;
       padding: 0;
       }
-      .prices-section td {
-        padding-left: 32px;
+      .prices-section div {
+      gap: 8px;
+      display: flex;
+      flex-direction: column;
       }
       .value {
-        text-align: right !important;
+        text-align: right;
       }
       ul {
         padding: 0;
@@ -126,63 +123,51 @@ html(lang='en')
         p 
           span รหัสผู้ขาย : 
           span= salesExecutiveName
-    table.main-table
+    table
       thead
         tr
           th ลำดับที่
           th รหัส
           th สินค้า
-          th จํานวน
-          th ราคา
+          th.value จํานวน
+          th.value ราคา
           th.value มูลค่าสินค้ารวม vat (บาท)
       tbody
         each item, index in items
           +tableRow(item, index)
-    table.prices-section
-      tr
-        td
-          h4 จำนวนเงินก่อนหักส่วนลด
-        td
-          h4.value= priceBeforeDiscount
-      if promotions.length > 0
-        tr
-          td
-            h4 ส่วนลดโปรโมชั่น :
-          td
-        each item in promotions
-          +promotionRow(item)
-      if parseFloat(voucherDiscountAmount) > 0
-        tr
-          td
-            h4 ส่วนลดจากการแลกคะแนน
-          td
-            h4.value= voucherDiscountAmount
-      tr
-        td
-          h4 ส่วนลดทั้งหมด
-        td
-          h4.value= discountTotal
-      tr
-        td
-          h4 จำนวนเงินหลังหักส่วนลด
-        td
-          h4.value= priceAfterDiscount
-      if parseFloat(upchargeTotal) > 0
-        tr
-          td
-            h4 ค่าบริการเพิ่มเติม
-          td
-            h4.value= upchargeTotal
-      tr
-        td
-          h4 ค่าขนส่ง
-        td
-          h4.value= deliveryFee
-      tr
-        td
-          h4 จํานวนเงินรวม
-        td
-          h4.value= totalPrice
+    .prices-section
+      div
+        h4 จำนวนเงินก่อนหักส่วนลด
+        if promotions.length > 0
+          h4 ส่วนลดโปรโมชั่น :
+          ul.promotionNames
+            each promotion in promotions
+              li
+                h4 #{promotion.name}
+        if parseInt(voucherDiscountAmount) > 0
+          h4 ส่วนลดจากการแลกคะแนน
+        h4 ส่วนลดทั้งหมด
+        h4 จำนวนเงินหลังหักส่วนลด
+        if parseInt(upchargeTotal) > 0
+          h4 ค่าบริการเพิ่มเติม
+        h4 ค่าขนส่ง
+        h4 จํานวนเงินรวม
+      div
+        h4.value= priceBeforeDiscount
+        if promotions.length > 0
+          br
+          ul.promotionPrices
+            each promotion in promotions
+              li
+                h4.value= promotion.amountString
+        if parseInt(voucherDiscountAmount) > 0
+          h4.value= voucherDiscountAmount
+        h4.value= discountTotal
+        h4.value= priceAfterDiscount
+        if parseInt(upchargeTotal) > 0
+          h4.value= upchargeTotal
+        h4.value= deliveryFee
+        h4.value= totalPrice
 `;
 
 var variables = {
@@ -267,8 +252,8 @@ var variables = {
     },
   ],
   discountTotal: "300.50 บาท",
-  upchargeTotal: "0.20 บาท",
-  voucherDiscountAmount: "0.20 บาท",
+  upchargeTotal: "0.00 บาท",
+  voucherDiscountAmount: "0.00 บาท",
   deliveryFee: "-",
 };
 
@@ -276,7 +261,7 @@ var variables = {
 const html = pug.render(CHECKOUT_PDF, variables);
 
 // Write the HTML content to an HTML file
-fs.writeFile("output.html", html, function (err) {
+fs.writeFile("outputOld.html", html, function (err) {
   if (err) throw err;
   console.log("HTML file created successfully!");
 });

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      .body {
+        padding: 24px;
+      }
+      .title {
+        text-align: center;
+        font-size: 22px;
+      }
+      .info-section {
+        display: flex;
+        justify-content: space-between;
+      }
+      .info-section p {
+        align-items: center;
+        gap: 4px;
+        padding: 0;
+        marhgin: 0;
+        margin-bottom: 8px;
+      }
+      .section-title {
+        font-size: 18px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      td,
+      th {
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+      }
+      th:first-child {
+        border-left: 2px solid #000;
+      }
+      th:last-child {
+        border-right: 2px solid #000;
+      }
+      tbody tr:last-child td {
+        border-bottom: 2px solid #000;
+      }
+      .prices-section {
+        font-size: 14x;
+        margin-top: 16px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 32px;
+      }
+      .prices-section h4 {
+        margin: 0;
+        padding: 0;
+      }
+      .prices-section div {
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
+      }
+      .value {
+        text-align: right;
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+      }
+      .promotionNames {
+        list-style-type: "-  ";
+        margin-left: 15px;
+      }
+      .promotionPrices {
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <h1 class="title">สรุปรายการสั่งสินค้า</h1>
+    <div class="info-section">
+      <div class="customer-info">
+        <h3 class="section-title">ข้อมูลผู้ซื้อ</h3>
+        <p>Pen undefined</p>
+        <p>
+          <span>จัดส่ง : </span
+          ><span>1112222, บางบอน, บางบอน, กรุงเทพมหานคร, 10150</span>
+        </p>
+        <p><span>วันที่ส่ง : </span><span>-</span></p>
+        <p><span>เวลาที่ต้องการ : </span><span>-</span></p>
+        <p><span>ผู้ติดต่อ : </span><span>ชื่อจริง นามสกุล</span></p>
+      </div>
+      <div class="seller-info">
+        <h3 class="section-title">ข้อมูลผู้ขาย</h3>
+        <p><span>หน่วยงาน : </span><span>804 - สาขาบางบอน</span></p>
+        <p><span>คลังสินค้า : </span><span>804 - สาขาบางบอน</span></p>
+        <p><span>รหัสผู้ขาย : </span><span></span></p>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ลำดับที่</th>
+          <th>รหัส</th>
+          <th>สินค้า</th>
+          <th class="value">จํานวน</th>
+          <th class="value">ราคา</th>
+          <th class="value">มูลค่าสินค้ารวม vat (บาท)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>104651</td>
+          <td>แลคตาซอย นมถั่วเหลือง ยูเอชที รสหวาน 200 มล. แพ็ค 36 กล่อง</td>
+          <td class="value">6.00</td>
+          <td class="value">255.00/KG</td>
+          <td class="value">1,530.00</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>385047</td>
+          <td>กุ๊ก น้ำมันถั่วเหลือง 1 ลิตร x 12 ขวด ยกลัง</td>
+          <td class="value">8.00</td>
+          <td class="value">510.00/KG</td>
+          <td class="value">4,080.00</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>178465</td>
+          <td>
+            ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ กลิ่นลาเวนเดอร์ 600 มล. x 3 กระป๋อง
+          </td>
+          <td class="value">3.00</td>
+          <td class="value">250.00/EA</td>
+          <td class="value">750.00</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>103954</td>
+          <td>ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ สีเขียว 600 มล. x 3 กระป๋อง</td>
+          <td class="value">2.00</td>
+          <td class="value">250.00/EA</td>
+          <td class="value">500.00</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="prices-section">
+      <div>
+        <h4>จำนวนเงินก่อนหักส่วนลด</h4>
+        <h4>ส่วนลดโปรโมชั่น :</h4>
+        <ul class="promotionNames">
+          <li><h4>Slab_Offer_CP03</h4></li>
+          <li>
+            <h4>
+              ลด 5 บ./ชิ้น เมื่อซื้อ 5 ขึ้นไป, ลด 9 บ./ชิ้น เมื่อซื้อ 10 ขึ้นไป
+            </h4>
+          </li>
+          <li><h4>Slab_CP04</h4></li>
+          <li>
+            <h4>
+              ลด 5 บ./ชิ้น เมื่อซื้อ 5 ขึ้นไป, ลด 9 บ./ชิ้น เมื่อซื้อ 10 ขึ้นไป
+            </h4>
+          </li>
+          <li><h4>Slab_CP04</h4></li>
+        </ul>
+        <h4>ส่วนลดทั้งหมด</h4>
+        <h4>จำนวนเงินหลังหักส่วนลด</h4>
+        <h4>ค่าขนส่ง</h4>
+        <h4>จํานวนเงินรวม</h4>
+      </div>
+      <div>
+        <h4 class="value">6,860.00 บาท</h4>
+        <br />
+        <ul class="promotionPrices">
+          <li><h4 class="value">153.00 บาท</h4></li>
+          <li><h4 class="value">15.00 บาท</h4></li>
+          <li><h4 class="value">73.50 บาท</h4></li>
+          <li><h4 class="value">10.00 บาท</h4></li>
+          <li><h4 class="value">49.00 บาท</h4></li>
+        </ul>
+        <h4 class="value">300.50 บาท</h4>
+        <h4 class="value">6,559.50 บาท</h4>
+        <h4 class="value">-</h4>
+        <h4 class="value">6,559.50 บาท</h4>
+      </div>
+    </div>
+  </body>
+</html>
