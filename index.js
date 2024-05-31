@@ -104,25 +104,27 @@ html(lang='en')
         margin: 0;
       }
   body.body
-    div.delivery-info
-      p 
-        span วันที่ส่ง : 
-        span= logisticGroup.Regular.deliveryDate
-      p 
-        span เวลาที่ต้องการ : 
-        span= logisticGroup.Regular.deliveryTime
-    table.main-table
-      thead
-        tr
-          th ลำดับที่
-          th รหัส
-          th สินค้า
-          th จํานวน
-          th ราคา
-          th.value มูลค่าสินค้ารวม vat (บาท)
-      tbody
-        each item, index in logisticGroup.Regular.lineItems
-          +tableRow(item, index)
+    if logisticGroup.Regular
+      div.delivery-info
+        p 
+          span วันที่ส่ง : 
+          span= logisticGroup.Regular.deliveryDate
+        p 
+          span เวลาที่ต้องการ : 
+          span= logisticGroup.Regular.deliveryTime
+    if logisticGroup.Regular
+      table.main-table
+        thead
+          tr
+            th ลำดับที่
+            th รหัส
+            th สินค้า
+            th จํานวน
+            th ราคา
+            th.value มูลค่าสินค้ารวม vat (บาท)
+        tbody
+          each item, index in logisticGroup.Regular.lineItems
+            +tableRow(item, index)
     each key, group in logisticGroup
       if group !== 'Regular'
         div.bulky-delivery-info
