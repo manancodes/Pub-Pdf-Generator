@@ -27,30 +27,11 @@ html(lang='en')
     meta(http-equiv='X-UA-Compatible', content='ie=edge')
     style.
       .body {
-      padding: 24px;
-      }
-      .title {
-      text-align: center;
-      font-size: 22px;
-      }
-      .info-section {
-      display: flex;
-      justify-content: space-between;
-      }
-      .info-section p {
-        align-items: center;
-        gap: 4px;
-        padding: 0;
-        margin: 0;
-        margin-bottom: 8px;
-      }
-      .section-title {
-      font-size: 18px;
+      padding: 0 24px 24px 24px;
       }
       table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 16px;
       }
       .main-table td,
       .main-table th {
@@ -97,35 +78,18 @@ html(lang='en')
       .promotionPrices {
         list-style-type: none;
       }
+      .bottomNote {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        width: 100%; 
+        background: #ffffff;
+      }
+      .bottomNoteText{
+        padding: 0;
+        margin: 0;
+      }
   body.body
-    h1.title สรุปรายการสั่งสินค้า
-    .info-section
-      .customer-info
-        h3.section-title ข้อมูลผู้ซื้อ
-        p= customerName
-        p
-          span จัดส่ง : 
-          span!= deliveryAddress
-        p 
-          span วันที่ส่ง : 
-          span= deliveryDate
-        p 
-          span เวลาที่ต้องการ : 
-          span= deliveryTime
-        p 
-          span ผู้ติดต่อ : 
-          span= contactPerson
-      .seller-info
-        h3.section-title ข้อมูลผู้ขาย
-        p 
-          span หน่วยงาน : 
-          span= storeName
-        p 
-          span คลังสินค้า : 
-          span= storeName
-        p 
-          span รหัสผู้ขาย : 
-          span= salesExecutiveName
     table.main-table
       thead
         tr
@@ -136,7 +100,7 @@ html(lang='en')
           th ราคา
           th.value มูลค่าสินค้ารวม vat (บาท)
       tbody
-        each item, index in items
+        each item, index in logisticGroup.Regular.lineItems
           +tableRow(item, index)
     table.prices-section
       tr
@@ -183,53 +147,102 @@ html(lang='en')
           h4 จํานวนเงินรวม
         td
           h4.value= totalPrice
+    div.bottomNote
+      p.bottomNoteText บริษัทขอสงวนสิทธิ์เรื่องราคาและจำนวนเงินให้ใช้ตามใบกำกับภาษีจริง
 `;
 
-var variables = {
+const variables = {
   customerName: "Pen undefined",
   deliveryAddress: "1112222, บางบอน, บางบอน, กรุงเทพมหานคร, 10150",
-  deliveryDate: "-",
-  deliveryTime: "-",
   storeName: "804 - สาขาบางบอน",
-  items: [
-    {
-      sku: "104651",
-      quantity: "6.00",
-      priceString: "255.00/KG",
-      title: "แลคตาซอย นมถั่วเหลือง ยูเอชที รสหวาน 200 มล. แพ็ค 36 กล่อง",
-      upchargeTotal: 0,
-      total: 1530,
-      totalString: "1,530.00",
+  logisticGroup: {
+    Bulky: {
+      deliveryDate: "-",
+      deliveryTime: "-",
+      lineItems: [
+        {
+          sku: "104651",
+          quantity: "6.00",
+          priceString: "255.00/KG",
+          title: "แลคตาซอย นมถั่วเหลือง ยูเอชที รสหวาน 200 มล. แพ็ค 36 กล่อง",
+          upchargeTotal: 0,
+          total: 1530,
+          totalString: "1,530.00",
+        },
+        {
+          sku: "385047",
+          quantity: "8.00",
+          priceString: "510.00/KG",
+          title: "กุ๊ก น้ำมันถั่วเหลือง 1 ลิตร x 12 ขวด ยกลัง",
+          upchargeTotal: 0,
+          total: 4080,
+          totalString: "4,080.00",
+        },
+        {
+          sku: "178465",
+          quantity: "3.00",
+          priceString: "250.00/EA",
+          title:
+            "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ กลิ่นลาเวนเดอร์ 600 มล. x 3 กระป๋อง",
+          upchargeTotal: 0,
+          total: 750,
+          totalString: "750.00",
+        },
+        {
+          sku: "103954",
+          quantity: "2.00",
+          priceString: "250.00/EA",
+          title: "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ สีเขียว 600 มล. x 3 กระป๋อง",
+          upchargeTotal: 0,
+          total: 500,
+          totalString: "500.00",
+        },
+      ],
     },
-    {
-      sku: "385047",
-      quantity: "8.00",
-      priceString: "510.00/KG",
-      title: "กุ๊ก น้ำมันถั่วเหลือง 1 ลิตร x 12 ขวด ยกลัง",
-      upchargeTotal: 0,
-      total: 4080,
-      totalString: "4,080.00",
+    Regular: {
+      deliveryDate: "-",
+      deliveryTime: "-",
+      lineItems: [
+        {
+          sku: "104651",
+          quantity: "6.00",
+          priceString: "255.00/KG",
+          title: "แลคตาซอย นมถั่วเหลือง ยูเอชที รสหวาน 200 มล. แพ็ค 36 กล่อง",
+          upchargeTotal: 0,
+          total: 1530,
+          totalString: "1,530.00",
+        },
+        {
+          sku: "385047",
+          quantity: "8.00",
+          priceString: "510.00/KG",
+          title: "กุ๊ก น้ำมันถั่วเหลือง 1 ลิตร x 12 ขวด ยกลัง",
+          upchargeTotal: 0,
+          total: 4080,
+          totalString: "4,080.00",
+        },
+        {
+          sku: "178465",
+          quantity: "3.00",
+          priceString: "250.00/EA",
+          title:
+            "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ กลิ่นลาเวนเดอร์ 600 มล. x 3 กระป๋อง",
+          upchargeTotal: 0,
+          total: 750,
+          totalString: "750.00",
+        },
+        {
+          sku: "103954",
+          quantity: "2.00",
+          priceString: "250.00/EA",
+          title: "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ สีเขียว 600 มล. x 3 กระป๋อง",
+          upchargeTotal: 0,
+          total: 500,
+          totalString: "500.00",
+        },
+      ],
     },
-    {
-      sku: "178465",
-      quantity: "3.00",
-      priceString: "250.00/EA",
-      title:
-        "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ กลิ่นลาเวนเดอร์ 600 มล. x 3 กระป๋อง",
-      upchargeTotal: 0,
-      total: 750,
-      totalString: "750.00",
-    },
-    {
-      sku: "103954",
-      quantity: "2.00",
-      priceString: "250.00/EA",
-      title: "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ สีเขียว 600 มล. x 3 กระป๋อง",
-      upchargeTotal: 0,
-      total: 500,
-      totalString: "500.00",
-    },
-  ],
+  },
   contactPerson: "ชื่อจริง นามสกุล",
   priceBeforeDiscount: "6,860.00 บาท",
   priceAfterDiscount: "6,559.50 บาท",
@@ -270,12 +283,14 @@ var variables = {
   upchargeTotal: "0.20 บาท",
   voucherDiscountAmount: "0.20 บาท",
   deliveryFee: "-",
+  deliveryDate: "2021-09-30",
+  deliveryTime: "2021-09-30",
+  salesExecutiveName: "As SE 1",
 };
 
 // Render the Pug template to HTML
 const html = pug.render(CHECKOUT_PDF, variables);
 
-// Write the HTML content to an HTML file
 fs.writeFile("output.html", html, function (err) {
   if (err) throw err;
   console.log("HTML file created successfully!");
