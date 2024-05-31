@@ -33,6 +33,19 @@ html(lang='en')
       width: 100%;
       border-collapse: collapse;
       }
+      .bulky-delivery-info {
+      margin-top: 52px;
+      }
+      .delivery-info p {
+      align-items: center;
+      gap: 4px;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 8px;
+      }
+      .main-table {
+      margin-top: 32px;
+      }
       .main-table td,
       .main-table th {
       text-align: left;
@@ -41,6 +54,7 @@ html(lang='en')
       .main-table th {
       border-top: 2px solid #000;
       border-bottom: 2px solid #000;
+      margin-top: 60px;
       }
       .main-table th:first-child {
       border-left: 2px solid #000;
@@ -90,6 +104,13 @@ html(lang='en')
         margin: 0;
       }
   body.body
+    div.delivery-info
+      p 
+        span วันที่ส่ง : 
+        span= logisticGroup.Regular.deliveryDate
+      p 
+        span เวลาที่ต้องการ : 
+        span= logisticGroup.Regular.deliveryTime
     table.main-table
       thead
         tr
@@ -102,6 +123,28 @@ html(lang='en')
       tbody
         each item, index in logisticGroup.Regular.lineItems
           +tableRow(item, index)
+    each key, group in logisticGroup
+      if group !== 'Regular'
+        div.bulky-delivery-info
+          .delivery-info
+            p 
+              span วันที่ส่ง : 
+              span= logisticGroup[group].deliveryDate
+            p 
+              span เวลาที่ต้องการ : 
+              span= logisticGroup[group].deliveryTime
+        table.main-table
+          thead
+            tr
+              th ลำดับที่
+              th รหัส
+              th สินค้า
+              th จํานวน
+              th ราคา
+              th.value มูลค่าสินค้ารวม vat (บาท)
+          tbody
+            each item, index in logisticGroup[group].lineItems
+              +tableRow(item, index)
     table.prices-section
       tr
         td
@@ -157,8 +200,8 @@ const variables = {
   storeName: "804 - สาขาบางบอน",
   logisticGroup: {
     Bulky: {
-      deliveryDate: "-",
-      deliveryTime: "-",
+      deliveryDate: "2021-09-30",
+      deliveryTime: "2021-09-30",
       lineItems: [
         {
           sku: "104651",
@@ -177,31 +220,12 @@ const variables = {
           upchargeTotal: 0,
           total: 4080,
           totalString: "4,080.00",
-        },
-        {
-          sku: "178465",
-          quantity: "3.00",
-          priceString: "250.00/EA",
-          title:
-            "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ กลิ่นลาเวนเดอร์ 600 มล. x 3 กระป๋อง",
-          upchargeTotal: 0,
-          total: 750,
-          totalString: "750.00",
-        },
-        {
-          sku: "103954",
-          quantity: "2.00",
-          priceString: "250.00/EA",
-          title: "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ สีเขียว 600 มล. x 3 กระป๋อง",
-          upchargeTotal: 0,
-          total: 500,
-          totalString: "500.00",
         },
       ],
     },
     Regular: {
-      deliveryDate: "-",
-      deliveryTime: "-",
+      deliveryDate: "2021-08-20",
+      deliveryTime: "2021-08-20",
       lineItems: [
         {
           sku: "104651",
@@ -230,15 +254,6 @@ const variables = {
           upchargeTotal: 0,
           total: 750,
           totalString: "750.00",
-        },
-        {
-          sku: "103954",
-          quantity: "2.00",
-          priceString: "250.00/EA",
-          title: "ไบกอน สเปรย์กำจัดยุง มด แมลงสาบ สีเขียว 600 มล. x 3 กระป๋อง",
-          upchargeTotal: 0,
-          total: 500,
-          totalString: "500.00",
         },
       ],
     },
@@ -283,8 +298,6 @@ const variables = {
   upchargeTotal: "0.20 บาท",
   voucherDiscountAmount: "0.20 บาท",
   deliveryFee: "-",
-  deliveryDate: "2021-09-30",
-  deliveryTime: "2021-09-30",
   salesExecutiveName: "As SE 1",
 };
 
